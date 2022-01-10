@@ -1,0 +1,14 @@
+ 29 OCTOBER 2021
+
+ONDER MODIFICATIONS
+
+ADDING Z COILS INTO SOFTWARE
+
+CHANGES:
+
+1. JoystickActuation.m 
+Added bp variable
+
+2. MapInputtoCoilCurrents.m
+added bp variable
+line 10 17 24 and 25 is modified
