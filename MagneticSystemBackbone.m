@@ -122,8 +122,8 @@ num = 1;
 cVec = zeros(1000, 1); 
 
 %handles.closedWindow == 0
-figure(5); 
-hold on 
+% figure(5); 
+% hold on 
 hammer_start_time = 0; 
 while (~FS.Stop()&&~handles.data.goalReached)
    t_sim = toc;
@@ -168,6 +168,18 @@ while (~FS.Stop()&&~handles.data.goalReached)
         
    else % joystick controller on
        [u] = JoystickActuation(handles.joy)
+       
+       % Rotation Component
+       if u(6) == 1
+           % Localize needle 
+           theta = 5; 
+           findRotMagCurrents(needleVec, magVec, theta); 
+       elseif u(7) == 1
+           theta = -5; 
+           findRotMagCurrents(needleVec, magVec, theta); 
+       end
+       
+       % Hammering Component
        if (hammer_bool == false && abs(u(5)) > 0.5) % starting to hammer
            hammer_start_time = toc; 
            hammer_bool = true; 
@@ -181,12 +193,14 @@ while (~FS.Stop()&&~handles.data.goalReached)
    current_time = toc
    coil_currents = MapInputtoCoilCurrents(u, settings, hammer_start_time, hammer_bool); 
    ArduinoCommunication(coil_currents, handles.arduino);
-   figure(5)
-   plot(current_time, coil_currents(1), 'r*')
-   plot(current_time,coil_currents(2), 'g*')
-   plot(current_time,coil_currents(3), 'b*')
-   plot(current_time,coil_currents(4), 'k*')
-   legend('N', 'E', 'W', 'S')
+%    preplot = toc 
+%    figure(5)
+%    plot(current_time, coil_currents(1), 'r*')
+%    plot(current_time,coil_currents(2), 'g*')
+%    plot(current_time,coil_currents(3), 'b*')
+%    plot(current_time,coil_currents(4), 'k*')
+%    legend('N', 'E', 'W', 'S')
+%    postplot = toc
 %    cVec(num) = coil_currents(1);
 %    num = num+1;
    

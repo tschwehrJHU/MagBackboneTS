@@ -14,11 +14,11 @@ else % Joystick control on
     lv = u(2);
     rh = u(3);
     rv = u(4); 
-    bp = u(5);
+    rtlt = u(5);
     
-    pulsing_period = 0.15; %seconds
+    pulsing_period = 1; %seconds
     pulsing_frequency = 1/pulsing_period;
-    pulse_forward_ratio = 0.765; %should be something between 0 and 1
+    pulse_forward_ratio = 0.5; %should be something between 0 and 1
         
     if (hammer_bool)% Joystick control with hammer
         
@@ -32,17 +32,17 @@ else % Joystick control on
             west_c = (max(0.0, -lh) + min(0.0, rh))*scale;
             east_c = (max(0.0, lh) + min(0.0, -rh))*scale;
             
-            coil_currents = [-north_c, -east_c, -west_c, -south_c];
+            coil_currents = [north_c, east_c, west_c, south_c];
         else
-            scale = 1*((bp-1)/2);
+            scale = 1*((rtlt-1)/2);
             north_c = (max(0.0, lv) + min(0.0, -rv))*scale;
             south_c = (max(0.0, -lv) + min(0.0, rv))*scale;
             west_c = (max(0.0, lh) + min(0.0, -rh))*scale;
             east_c = (max(0.0, -lh) + min(0.0, rh))*scale;
         
-           coil_currents = [-north_c, -east_c, -west_c, -south_c];
+           coil_currents = [north_c, east_c, west_c, south_c];
         end
-        
+        pause(0.05); 
     else
     % change this scale to modify the coil power
     scale = 1;

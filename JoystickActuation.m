@@ -4,10 +4,13 @@ function [u] = JoystickActuation(joy)
  
     lh = joy_data(1);
     lv = joy_data(2);
-    bp = joy_data(3);
+    rtlt = joy_data(3);
     rh = joy_data(4);
     rv = joy_data(5);
     
-    u = [lh lv rh rv bp];
+    lb = button(joy, 5);
+    rb = button(joy, 6);
+    
+    u = [lh lv rh rv rtlt rb lb];
 %     u = [lh lv rh rv];
 end
